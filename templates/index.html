@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Repo Explainer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🤖 AI Repo Explainer</h1>
+
+    <div class="form-box">
+
+        <!-- ✅ NEW: GitHub URL (optional) -->
+        <input 
+            type="text" 
+            id="repoUrl" 
+            placeholder="Enter GitHub repo URL (optional)"
+        >
+
+        <!-- ✅ OLD: still supported -->
+        <input 
+            type="text" 
+            id="repoPath" 
+            placeholder="Enter repo path (fallback)"
+        >
+
+        <input 
+            type="text" 
+            id="query" 
+            placeholder="Ask a question about the repo..."
+        >
+
+        <button onclick="askRepo()">Ask</button>
+    </div>
+
+    <!-- 🔄 Loading -->
+    <div id="loading" class="hidden">⏳ Thinking...</div>
+
+    <!-- 📦 Response -->
+    <div id="responseBox" class="response hidden">
+
+        <h2>Answer</h2>
+        <pre id="answer"></pre>
+
+        <h3 id="fixTitle" class="hidden">Fix</h3>
+        <pre id="fix" class="hidden"></pre>
+
+        <h3>Warnings</h3>
+        <ul id="warnings"></ul>
+
+        <h3>Sources</h3>
+        <ul id="sources"></ul>
+
+    </div>
+
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>

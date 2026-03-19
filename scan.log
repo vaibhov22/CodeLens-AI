@@ -1,0 +1,50 @@
+2026-03-19 13:18:01,930 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 13:18:02,207 [INFO] Scanned 4 valid files
+2026-03-19 13:23:27,473 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 13:23:27,654 [INFO] Scanned 4 valid files
+2026-03-19 13:24:10,931 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 14:13:38,562 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 14:13:38,930 [INFO] Scanned 4 valid files
+2026-03-19 14:14:41,426 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 14:23:17,872 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 14:23:18,301 [INFO] Scanned 4 valid files
+2026-03-19 14:24:26,243 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 14:50:36,559 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 14:50:36,899 [INFO] Scanned 4 valid files
+2026-03-19 14:51:52,858 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 14:57:56,116 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 14:57:56,504 [INFO] Scanned 4 valid files
+2026-03-19 14:59:26,381 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:01:24,609 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 15:01:25,222 [INFO] Scanned 4 valid files
+2026-03-19 15:02:25,777 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:12:42,114 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 15:12:42,782 [INFO] Scanned 4 valid files
+2026-03-19 15:14:31,703 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:27:17,278 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 15:27:17,714 [INFO] Scanned 4 valid files
+2026-03-19 15:28:57,966 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:43:54,050 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:45:44,165 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 15:45:44,587 [INFO] Scanned 4 valid files
+2026-03-19 15:46:48,769 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:49:30,695 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 15:49:31,016 [INFO] Scanned 4 valid files
+2026-03-19 15:50:54,343 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:51:40,320 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 15:51:40,679 [INFO] Scanned 4 valid files
+2026-03-19 15:53:18,263 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:55:11,006 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:55:40,910 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:56:04,375 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:57:37,999 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 15:57:38,262 [INFO] Scanned 4 valid files
+2026-03-19 15:57:50,476 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 15:58:36,016 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 15:58:36,192 [INFO] Scanned 4 valid files
+2026-03-19 15:58:47,183 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 16:12:58,375 [INFO] Scanning repository: repos/Loan_Status_prediction
+2026-03-19 16:12:58,541 [INFO] Scanned 4 valid files
+2026-03-19 16:14:10,202 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 16:16:10,920 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-19 16:18:23,987 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"

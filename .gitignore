@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+repos/
+chromadb/
+*.db
+*.sqlite3
