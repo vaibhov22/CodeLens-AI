@@ -26,7 +26,7 @@ def rerank(results, query):
             score -= 1
 
         # 🔥 strong boost for model loading queries
-        if any(x in q for x in ["load", "model", "where"]):
+        if any(x in q for x in ["load", "model"]):
             if any(k in lowered for k in ["pickle.load", "joblib.load", "model =", "load("]):
                 score += 6
 

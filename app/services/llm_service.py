@@ -58,12 +58,14 @@ def detect_warnings(docs: list[str]) -> list[str]:
             warnings.add("Feature order risk detected")
         if "float(" in doc and "try" not in doc:
             warnings.add("Input validation missing → float() crash risk")
+        if "debug=True" in doc:
+            warnings.add("debug=True detected → disable in production!")
     return list(warnings)
 
 
 def filter_warnings(query: str, warnings: list[str]) -> list[str]:
     q = query.lower()
-    if any(x in q for x in ["crash", "input", "invalid", "error", "abc"]):
+    if any(x in q for x in ["crash", "input", "invalid", "error", "abc","float","conversion", "fails"]):
         return [w for w in warnings if "float" in w.lower() or "validation" in w.lower()]
     if "order" in q:
         return [w for w in warnings if "order" in w.lower()]
@@ -172,7 +174,7 @@ def clean_source_code(raw: str) -> str:
     cleaned = re.sub(r"^```[\w]*\n?|```$", "", cleaned, flags=re.MULTILINE).strip()
     for line in cleaned.splitlines():
         line = line.strip()
-        if line:
+        if line and line.lower() != "code:":
             return line
     return ""
 
@@ -488,6 +490,19 @@ def generate_answer(query: str, results: dict, warnings: list | None = None) -> 
         for m in metas[:3]
     ]
 
+    # ✅ FIXED: accurate line number calculation
+    exact_line_number = None
+    if source_code:
+        for m, doc in zip(metas, docs):
+            doc_lines = doc.splitlines()
+            chunk_start = m.get("start_line", 1)
+            for i, line in enumerate(doc_lines):
+                if source_code.strip() in line.strip():
+                    exact_line_number = chunk_start + i - 1  # ✅ -1 fixes off by one
+                    break
+            if exact_line_number:
+                break
+
     return {
         "answer": answer.strip(),
         "source_code": source_code,
@@ -495,4 +510,5 @@ def generate_answer(query: str, results: dict, warnings: list | None = None) -> 
         "confidence": confidence,
         "warnings": warnings,
         "sources": sources,
+        "exact_line": exact_line_number,  # ✅ NEW
     }

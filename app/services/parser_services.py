@@ -86,7 +86,7 @@ def read_file(full_path, file, repo_path, gitignore_spec):
         # skip binary files
         if b'\x00' in raw:
             return None
-
+ 
         detected = chardet.detect(raw)
         encoding = detected.get("encoding") or "utf-8"
 

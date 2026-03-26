@@ -61,3 +61,11 @@ pre {
 ul {
     padding-left: 20px;
 }
+#exactLineBox pre {
+    background: #0f172a;
+    color: #a6e3a1;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #a6e3a1;
+    font-size: 14px;
+}

@@ -45,9 +45,22 @@ async function askRepo() {
         if (!res.ok) throw new Error("Server error");
 
         const data = await res.json();
+        console.log("API Response:", data);
 
         // -------- ANSWER --------
         answerEl.textContent = data.answer;
+
+        // -------- EXACT LINE --------  ✅ UPDATED
+        const exactLineBox = document.getElementById("exactLineBox");
+        const exactLineEl = document.getElementById("exactLine");
+
+        if (data.source_code && data.source_code.trim() !== "") {
+            const file = data.sources?.[0]?.file || "unknown";
+            exactLineEl.textContent = `📄 Found in: ${file}\n${data.source_code}`;
+            exactLineBox.classList.remove("hidden");
+        } else {
+            exactLineBox.classList.add("hidden");
+        }
 
         // -------- FIX --------
         if (data.fix_code && data.fix_code.trim() !== "") {
