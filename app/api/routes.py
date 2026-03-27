@@ -8,6 +8,7 @@ from app.services.embedding_service import create_embeddings
 from app.db.vector_store import store_embeddings, collection
 from app.services.retriever_service import search_code
 from app.services.llm_service import generate_answer
+from app.services.history_service import save_query
 
 router = APIRouter()
 
@@ -80,6 +81,8 @@ def ask_repo(req: AskRequest):
         repo_path = clone_repository(req.repo_url)
     else:
         repo_path = req.repo_path
+    if not repo_path:
+        return {"error": "Invalid repo path or clone failed"}
 
     repo_path = repo_path.replace("\\", "/")
 
@@ -100,5 +103,9 @@ def ask_repo(req: AskRequest):
     warnings = data["warnings"]
 
     response = generate_answer(req.query, results, warnings)
+    try:
+        save_query("guest", req.query, response["answer"])
+    except Exception as e:
+        print(f"History save failed: {e}")  # ✅ now you can see the error
 
     return response

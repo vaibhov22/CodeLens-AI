@@ -37,6 +37,7 @@ QUERY_TERM_MAP = [
     (["predict", "prediction"],                       ["model.predict(", ".predict("]),
     (["route", "endpoint", "url"],                    ["@app.route", "@router.", "app.get(", "app.post("]),
     (["return", "response"],                          ["return ", "jsonify(", "Response("]),
+    (["rule", "rules", "eslint rules"], ["rules:", "rules ="])
 ]
 
 
@@ -101,6 +102,8 @@ def _score_line(line: str, priority_terms: list[str], q_words: list[str]) -> int
     score += sum(2 for w in q_words if w in lowered)
     if _OPERATION_PATTERNS.search(line):
         score += 1
+    if "rules" in lowered:
+        score += 6
     return score
 
 
@@ -115,6 +118,8 @@ def _best_line_in_doc(
         score = _score_line(stripped, priority_terms, q_words)
         if score > best_score:
             best_score, best_idx, best_line = score, i, stripped
+        if "rules" in stripped.lower():
+            score += 5
     if best_score < _MIN_LINE_SCORE:
         return -1, ""
     return best_idx, best_line
@@ -479,6 +484,8 @@ def generate_answer(query: str, results: dict, warnings: list | None = None) -> 
         source_code, grounded_line, llm_confidence, warnings, query_type
     )
 
+    query_words = query.lower().split()
+
     sources = [
         {
             "file": m.get("file"),
@@ -487,11 +494,13 @@ def generate_answer(query: str, results: dict, warnings: list | None = None) -> 
             "start_line": m.get("start_line"),
             "end_line": m.get("end_line"),
         }
-        for m in metas[:3]
-    ]
+        for m, doc in zip(metas, docs)
+        if any(word in doc.lower() for word in query_words)
+    ][:3]
 
     # ✅ FIXED: accurate line number calculation
     exact_line_number = None
+    exact_file = None  
     if source_code:
         for m, doc in zip(metas, docs):
             doc_lines = doc.splitlines()
@@ -499,6 +508,7 @@ def generate_answer(query: str, results: dict, warnings: list | None = None) -> 
             for i, line in enumerate(doc_lines):
                 if source_code.strip() in line.strip():
                     exact_line_number = chunk_start + i - 1  # ✅ -1 fixes off by one
+                    exact_file = m.get("file")
                     break
             if exact_line_number:
                 break
@@ -511,4 +521,5 @@ def generate_answer(query: str, results: dict, warnings: list | None = None) -> 
         "warnings": warnings,
         "sources": sources,
         "exact_line": exact_line_number,  # ✅ NEW
+        "exact_file": exact_file,
     }

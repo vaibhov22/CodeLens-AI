@@ -49,6 +49,16 @@ def rerank(results, query):
         if "predict" in meta.get("name", "").lower():
             score += 1
 
+        # ✅ NEW: boost for empty/guard clause queries
+        if any(x in q for x in ["empty", "no data", "nothing", "if len", "null", "none", "missing"]):
+            if any(k in lowered for k in ["len(", "== 0", "if not", "return", "is none", "is empty"]):
+                score += 5
+
+        # ✅ NEW: boost for analytics/helper file queries
+        if any(x in q for x in ["distraction", "attention", "blink", "fatigue", "session", "report", "duration"]):
+            if any(k in lowered for k in ["df[", "mean()", "plt.", "logger", "session_duration", "distraction_percentage"]):
+                score += 4
+
         scored.append((score, doc, meta))
 
     if not scored:

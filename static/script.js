@@ -55,7 +55,7 @@ async function askRepo() {
         const exactLineEl = document.getElementById("exactLine");
 
         if (data.source_code && data.source_code.trim() !== "") {
-            const file = data.sources?.[0]?.file || "unknown";
+            const file = data.exact_file || data.sources?.[0]?.file || "unknown";
             exactLineEl.textContent = `📄 Found in: ${file}\n${data.source_code}`;
             exactLineBox.classList.remove("hidden");
         } else {
@@ -89,7 +89,7 @@ async function askRepo() {
         if (data.sources && data.sources.length > 0) {
             data.sources.forEach(src => {
                 const li = document.createElement("li");
-                li.textContent = `${src.file} → ${src.name}() [${src.start_line}-${src.end_line}]`;
+                li.textContent = `${src.file} → ${src.name} [${src.start_line}-${src.end_line}]`
                 sourcesEl.appendChild(li);
             });
         } else {
