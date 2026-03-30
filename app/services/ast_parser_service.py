@@ -2,7 +2,6 @@ import ast
 
 MAX_CHUNK_SIZE = 2000
 
-
 def parse_python_file(file_data):
 
     content = file_data["content"]

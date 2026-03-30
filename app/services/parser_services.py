@@ -53,10 +53,10 @@ def load_gitignore(repo_path):
 
     if os.path.exists(gitignore_path):
         with open(gitignore_path, "r", encoding="utf-8") as f:
-            lines = f.readlines()
+            lines = f.readlines() # It’s a list of strings (line by line) ✅
 
         log.info(".gitignore loaded")
-        return PathSpec.from_lines("gitwildmatch", lines)
+        return PathSpec.from_lines("gitwildmatch", lines) # a matching/filter object that can check whether a file should be ignored or not
 
     return None
 
@@ -102,16 +102,16 @@ def read_file(full_path, file, repo_path, gitignore_spec):
     last_modified = time.ctime(os.path.getmtime(full_path))
 
     return {
-        "file_name": file,
-        "path": relative_path,
-        "extension": extension,
-        "language": language,
-        "size_bytes": size,
-        "lines_of_code": lines_of_code,
-        "last_modified": last_modified,
-        "encoding": encoding,
-        "content": content,
-        "lines": content.split("\n")
+        "file_name": file,                      # Actual filename (e.g., "main.py")
+        "path": relative_path,                  # Relative path from repo root (e.g., "src/main.py")
+        "extension": extension,                 # File extension (e.g., ".py", ".java")
+        "language": language,                   # Programming language (e.g., "python", "java")
+        "size_bytes": size,                     # Total file size in bytes
+        "lines_of_code": lines_of_code,         # Total number of lines in file
+        "last_modified": last_modified,         # When file was last modified (readable format)
+        "encoding": encoding,                   # File encoding (e.g., "utf-8", "latin-1")
+        "content": content,                     # Full file content as text
+        "lines": content.split("\n")            # List of individual lines (split by newline)
     }
 
 # ─────────────────────────────────────────────
