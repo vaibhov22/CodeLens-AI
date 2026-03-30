@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass
+import os
+os.environ["OLLAMA_HOST"]= "https://semidivisive-sclerometric-abigail.ngrok-free.dev"
 import ollama
 
 
