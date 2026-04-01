@@ -4,7 +4,6 @@ import json
 import re
 from dataclasses import dataclass
 import os
-os.environ["OLLAMA_HOST"]= "https://semidivisive-sclerometric-abigail.ngrok-free.dev"
 import ollama
 
 
@@ -442,7 +441,10 @@ def generate_answer(query: str, results: dict, warnings: list | None = None) -> 
     context = assemble_context(results)
     prompt = build_prompt(query, context, prompt_grounded_line, warnings, query_type)
 
-    client = ollama.Client(host="http://host.docker.internal:11434")
+    # client = ollama.Client(host="http://host.docker.internal:11434")
+    client = ollama.Client(
+        host=os.getenv("OLLAMA_HOST","http://localhost:11434")
+    )
 
     response = client.chat(
         model="llama3",
