@@ -1,31 +1,24 @@
-name: Deploy to EC2
+- name: SSH to EC2 and deploy
+  uses: appleboy/ssh-action@v1.0.3
+  with:
+    host: ${{ secrets.EC2_HOST }}
+    username: ubuntu
+    key: ${{ secrets.EC2_KEY }}
+    script: |
+      cd ~/app || mkdir ~/app && cd ~/app
 
-on:
-  push:
-    branches:
-      - main
+      if [ ! -d ".git" ]; then
+        git clone https://github.com/vaibhov22/CodeLens-AI.git .
+      else
+        git pull origin main
+      fi
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+      docker stop flask-app || true
+      docker rm flask-app || true
 
-    steps:
-      - name: SSH to EC2 and deploy
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            cd ~/app
+      docker build -t flask-app .
 
-            git pull origin main
-
-            docker stop flask-app || true
-            docker rm flask-app || true
-
-            docker build -t flask-app .
-
-            docker run -d -p 8000:8000 \
-            -e OLLAMA_HOST=${{ secrets.OLLAMA_HOST }} \
-            flask-app
+      docker run -d -p 8000:8000 \
+      --name flask-app \
+      -e OLLAMA_HOST=${{ secrets.OLLAMA_HOST }} \
+      flask-app
