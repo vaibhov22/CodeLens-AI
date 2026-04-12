@@ -34,7 +34,7 @@ async function askRepo() {
             body.repo_path = repoPath;
         }
 
-        const res = await fetch("/ask_repo", {
+        const res = await fetch("http://34.241.56.218:8000/ask_repo", "/ask_repo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
