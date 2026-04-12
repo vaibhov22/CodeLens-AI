@@ -10,27 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: SSH to EC2 and deploy
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
+          host: 34.241.56.218
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd ~/app || mkdir ~/app && cd ~/app
-
-            if [ ! -d ".git" ]; then
-              git clone https://github.com/vaibhov22/CodeLens-AI.git .
-            else
-              git pull origin main
-            fi
-
-            docker stop flask-app || true
-            docker rm flask-app || true
-
-            docker build -t flask-app .
-
-            docker run -d -p 8000:8000 \
-            --name flask-app \
-            -e OLLAMA_HOST=${{ secrets.OLLAMA_HOST }} \
-            flask-app
+            cd CodeLens-AI
+            git pull
+            docker build -t ai_repos_explainer .
+            docker stop $(docker ps -q) || true
+            docker run -d -p 8000:8000 -e OPENROUTER_API_KEY=${{ secrets.API_KEY }} ai_repos_explainer
