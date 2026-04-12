@@ -4,8 +4,10 @@ import json
 import re
 from dataclasses import dataclass
 import os
-import ollama
-
+# import ollama
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+load_dotenv()
 
 @dataclass
 class Source:
@@ -264,7 +266,12 @@ def assemble_context(results: dict) -> str:
 
 
 # ───────────────────────── PROMPT ─────────────────────────
-
+llm = ChatOpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    model="deepseek/deepseek-chat",
+    timeout=30
+)
 def build_prompt(
     query: str,
     context: str,
@@ -441,17 +448,23 @@ def generate_answer(query: str, results: dict, warnings: list | None = None) -> 
     context = assemble_context(results)
     prompt = build_prompt(query, context, prompt_grounded_line, warnings, query_type)
 
-    # client = ollama.Client(host="http://host.docker.internal:11434")
-    client = ollama.Client(
-        host=os.getenv("OLLAMA_HOST","http://localhost:11434")
-    )
+    # # client = ollama.Client(host="http://host.docker.internal:11434")
+    # client = ollama.Client(
+    #     host=os.getenv("OLLAMA_HOST","http://localhost:11434")
+    # )
 
-    response = client.chat(
-        model="llama3",
-        messages=[{"role": "user", "content": prompt}]
-    )
+    # response = client.chat(
+    #     model="llama3",
+    #     messages=[{"role": "user", "content": prompt}]
+    # )
+#     llm = ChatOpenAI(
+#     base_url="https://openrouter.ai/api/v1",
+#     api_key=os.getenv("OPENROUTER_API_KEY"),
+#     model="deepseek/deepseek-chat"
+# )
 
-    text = response["message"]["content"].strip()
+    response = llm.invoke(prompt)
+    text = response.content.strip()
     answer, source_code, fix_code, llm_confidence = "", "", "", 0.5
 
     parsed = _repair_and_parse_json(text)

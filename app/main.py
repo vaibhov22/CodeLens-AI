@@ -19,7 +19,7 @@ app.add_middleware(
 
 # 🔗 include routes
 app.include_router(router)
-
+#{ frontend
 # 🔥 serve static files (CSS, JS)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -30,3 +30,4 @@ templates = Jinja2Templates(directory="templates")
 @app.get("/")
 def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
+#}
