@@ -9,7 +9,7 @@ import chardet
 from pathspec import PathSpec
 
 # ─────────────────────────────────────────────
-# CONFIG
+# CONFIG 
 # ─────────────────────────────────────────────
 
 SUPPORTED_EXTENSIONS = [
