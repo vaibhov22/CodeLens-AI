@@ -1,24 +1,31 @@
 name: Deploy to EC2
 
 on:
-  push:
-    branches:
-      - main
+push:
+branches:
+- main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+deploy:
+runs-on: ubuntu-latest
 
-    steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: 34.241.56.218
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd CodeLens-AI
-            git pull
-            docker build -t ai_repos_explainer .
-            docker stop $(docker ps -q) || true
-            docker run -d -p 8000:8000 -e OPENROUTER_API_KEY=${{ secrets.API_KEY }} ai_repos_explainer
+```
+steps:
+  - name: Deploy via SSH
+    uses: appleboy/ssh-action@v1.0.3
+    with:
+      host: 34.241.56.218
+      username: ec2-user
+      key: ${{ secrets.EC2_SSH_KEY }}
+      envs: OPENROUTER_API_KEY
+      script: |
+        cd CodeLens-AI
+        git pull
+        docker build -t ai_repos_explainer .
+        docker stop $(docker ps -q) || true
+        docker run -d -p 8000:8000 \
+          -e OPENROUTER_API_KEY=$OPENROUTER_API_KEY \
+          ai_repos_explainer
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+```
