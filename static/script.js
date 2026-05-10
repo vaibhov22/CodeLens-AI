@@ -49,6 +49,23 @@ async function askRepo() {
 
         // -------- ANSWER --------
         answerEl.textContent = data.answer;
+        // -------- ANSWER --------
+        answerEl.textContent = data.answer;
+
+        // -------- CONFIDENCE --------
+        const confidenceBox = document.getElementById("confidenceBox");
+        const confidenceEl = document.getElementById("confidence");
+
+        if (data.confidence !== undefined) {
+            confidenceEl.textContent =
+                (data.confidence * 100).toFixed(0) + "%";
+
+            confidenceBox.classList.remove("hidden");
+        } else {
+            confidenceBox.classList.add("hidden");
+        }
+
+        // -------- EXACT LINE --------
 
         // -------- EXACT LINE --------  ✅ UPDATED
         const exactLineBox = document.getElementById("exactLineBox");
